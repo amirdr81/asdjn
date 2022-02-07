@@ -1,4 +1,5 @@
-CMakeFiles/state.io.dir/src/main.c.o: /Users/amir/Desktop/test/src/main.c \
+CMakeFiles/state.io.dir/src/main.c.o: \
+  /Users/amir/desktop/project/src/main.c \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/cdefs.h \
