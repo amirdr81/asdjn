@@ -52,7 +52,7 @@ void make_soldior_houses(struct all_house w[], int n)
     }
 }
 void send(SDL_Renderer *sdlRenderer, struct all_house s[], int a, int b, int n, SDL_bool shallExit, struct tak_sarbaz e[][100],
-        double vatar, int p, int m, struct all_house w[], int flag_player2, int arr[])
+        double vatar, int p, int m, struct all_house w[])
 {
 
     for (int i = 0; i < p; i++)
@@ -100,7 +100,12 @@ void send(SDL_Renderer *sdlRenderer, struct all_house s[], int a, int b, int n, 
                         s[b].number = 0;
                         s[b].main_color = s[b].color3;
                         s[b].flag = 2;
-                        arr[flag_player2] = b;
+                    }
+                    else if(s[b].number < 0 && e[i][m].pl == 3)
+                    {
+                        s[b].number = 0;
+                        s[b].main_color = s[b].color4;
+                        s[b].flag = 3;
                     }
                 }
             }
@@ -125,6 +130,10 @@ void send(SDL_Renderer *sdlRenderer, struct all_house s[], int a, int b, int n, 
         {
             filledCircleColor(sdlRenderer,e[i][m].x, e[i][m].y, 10, e[i][m].color2);
         }
+        if(e[i][m].flag == 0 && e[i][m].pl == 3)
+        {
+            filledCircleColor(sdlRenderer,e[i][m].x, e[i][m].y, 10, e[i][m].color3);
+        }
     }
 }
 
@@ -136,6 +145,7 @@ void change(struct tak_sarbaz e[][100], int j, int s, int a, int b, struct all_h
     //color
     e[j][s].color1 = w[a].color1;
     e[j][s].color2 = w[a].color3;
+    e[j][s].color3 = w[a].color4;
     //position
     e[j][s].flag = -1;
     e[j][s].pl = 0;
@@ -159,12 +169,10 @@ void show_soldior_houses(SDL_Renderer *sdlRenderer, int n, struct all_house w[],
     for(int i = 0; i < n; i++)
     {
         int x, y;
-        char s[5], t[4];
+        char s[5];
         //number of soldiors in each soldior_house
         gcvt(w[i].number, 10, s);
-        gcvt(i, 10, t);
         stringRGBA(sdlRenderer, w[i].x, w[i].y + 20, s , 0x00, 0x00,0x00,0xff);
-        stringRGBA(sdlRenderer, w[i].x, w[i].y - 20, t , 0x00, 0x00,0x00,0xff);
         Uint32 e = SDL_GetMouseState(&x, &y);
         if(sqrt(pow((x - w[i].x),2) + pow((y - w[i].y),2)) < 15 && w[i].flag == 1 && a == -1)
         {
@@ -181,6 +189,29 @@ void show_soldior_houses(SDL_Renderer *sdlRenderer, int n, struct all_house w[],
     }
 }
 
+int lost(struct all_house w[], int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        if(w[i].flag == 1)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int win(struct all_house w[], int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        if(w[i].flag != 1)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 
 

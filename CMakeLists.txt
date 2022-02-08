@@ -4,7 +4,7 @@ project(state.io C)
 
 set(CMAKE_C_STANDARD 11)
 
-set(SOURCE src/main.c src/functions.c)
+set(SOURCE src/main.c src/functions.c src/scorebox.c)
 
 include_directories(/opt/homebrew/var/homebrew/linked/sdl2/include/SDL2)
 include_directories(/opt/homebrew/var/homebrew/linked/sdl2_gfx/include/SDL2)

@@ -86,6 +86,13 @@ build CMakeFiles/state.io.dir/src/functions.c.o: C_COMPILER__state.2eio_Debug /U
   OBJECT_DIR = CMakeFiles/state.io.dir
   OBJECT_FILE_DIR = CMakeFiles/state.io.dir/src
 
+build CMakeFiles/state.io.dir/src/scorebox.c.o: C_COMPILER__state.2eio_Debug /Users/amir/Desktop/test/src/scorebox.c || cmake_object_order_depends_target_state.io
+  DEP_FILE = CMakeFiles/state.io.dir/src/scorebox.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -std=gnu11
+  INCLUDES = -I/opt/homebrew/var/homebrew/linked/sdl2/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_gfx/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_ttf/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_image/include/SDL2 -I/Users/amir/Desktop/test/header -I/Users/amir/Desktop/test/src -I/Users/amir/Desktop/test/fonts
+  OBJECT_DIR = CMakeFiles/state.io.dir
+  OBJECT_FILE_DIR = CMakeFiles/state.io.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target state.io
@@ -94,7 +101,7 @@ build CMakeFiles/state.io.dir/src/functions.c.o: C_COMPILER__state.2eio_Debug /U
 #############################################
 # Link the executable state.io
 
-build state.io: C_EXECUTABLE_LINKER__state.2eio_Debug CMakeFiles/state.io.dir/src/main.c.o CMakeFiles/state.io.dir/src/functions.c.o
+build state.io: C_EXECUTABLE_LINKER__state.2eio_Debug CMakeFiles/state.io.dir/src/main.c.o CMakeFiles/state.io.dir/src/functions.c.o CMakeFiles/state.io.dir/src/scorebox.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/var/homebrew/linked/sdl2/lib -Wl,-rpath,/opt/homebrew/var/homebrew/linked/sdl2_gfx/lib -Wl,-rpath,/opt/homebrew/var/homebrew/linked/sdl2_ttf/lib -Wl,-rpath,/opt/homebrew/var/homebrew/linked/sdl2_image/lib  -lm  -lsdl2  -lsdl2_gfx  -lsdl2_ttf  -lsdl2_image
   LINK_PATH = -L/opt/homebrew/var/homebrew/linked/sdl2/lib   -L/opt/homebrew/var/homebrew/linked/sdl2_gfx/lib   -L/opt/homebrew/var/homebrew/linked/sdl2_ttf/lib   -L/opt/homebrew/var/homebrew/linked/sdl2_image/lib

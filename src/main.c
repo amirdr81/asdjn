@@ -3,12 +3,11 @@
 
 //new & external libraries
 #include "SDL.h"
-
 #include "../header/functions.h"
+#include "../header/scorebox.h"
 
 SDL_bool shallExit = SDL_FALSE;
-
-
+SDL_bool win_lost = SDL_FALSE;
 
 int main()
 {
@@ -21,7 +20,7 @@ int main()
     int a = -1, b = -1, s = 0, n;
 
     //make random n
-    n = rand() % 10 + 6;
+    n = 3;
     struct all_house w[n];
     struct tak_sarbaz e[1000][100];
     long long int time = 1;
@@ -38,14 +37,11 @@ int main()
     w[1].flag = 2;
     w[1].main_color = w[1].color3;
     w[1].number = 15;
-    int arr[n];
-    for(int i = 0; i < n; i++)
-    {
-        arr[i] = -1;
-    }
-    int flag_player2 = 1;
-    arr[0] = 1;
 
+    //player 3
+    w[2].flag = 3;
+    w[2].main_color = w[2].color4;
+    w[2].number = 15;
     //create renderer
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 
@@ -59,28 +55,58 @@ int main()
         //soldior houses
         show_soldior_houses(sdlRenderer, n, w, a, b);
 
-
+        //lost
+        if(lost(w,n) == 0)
+        {
+            shallExit == SDL_TRUE;
+            break;
+        }
+        //win
+        if(win(w,n) == 0)
+        {
+            win_lost = SDL_TRUE;
+            shallExit == SDL_TRUE;
+            break;
+        }
         //moving soldiors
         for(int j = 0; j < s; j++)
         {
-            send(sdlRenderer, w, e[0][j].a, e[0][j].b, e[0][j].number, shallExit,e,e[0][j].vatar, e[0][j].p, j, w, flag_player2, arr);
-            if(arr[flag_player2] != -1)
-            {
-                flag_player2++;
-            }
+            send(sdlRenderer, w, e[0][j].a, e[0][j].b, e[0][j].number, shallExit,e,e[0][j].vatar, e[0][j].p, j, w);
         }
 
-        //random sending soldiors
-        if(time % 350 == 0)
+        //random sending soldiors by player2
+        if(time % 500 == 0)
         {
-            int random = rand() % flag_player2;
-            int final = arr[random];
-            int target = rand() % n;
-            int q = w[final].number;
-            w[final].number = 0;
+            //find player2 houses
+            ///////////
+            int arr[n];
+            int num = 0;
+            for(int i = 0; i < n; i++)
+            {
+                if(w[i].flag == 2)
+                {
+                    arr[num] = i;
+                    num++;
+                }
+            }
+            ////////////
+            int random = rand() % num;
+            int mabda = arr[random];
+            int maghsad = rand() % n;
+            if(maghsad == mabda && maghsad != n - 1)
+            {
+                maghsad++;
+            }
+            else if(maghsad == mabda && maghsad == n - 1)
+            {
+                maghsad--;
+            }
+            int q = w[mabda].number;
+            w[mabda].number = 0;
+            //define new mission for sending soldiors
             for(int j = 0; j < q; j++)
             {
-                change(e,j,s,final, target,w, q);
+                change(e,j,s,mabda,maghsad,w,q);
                 e[j][s].pl = 2;
             }
             s++;
@@ -88,8 +114,51 @@ int main()
             {
                 s = s % 100;
             }
+
         }
 
+        //random sending soldiors by player3
+        if(time % 450 == 0)
+        {
+            //find player3 houses
+            ///////////
+            int arr[n];
+            int num = 0;
+            for(int i = 0; i < n; i++)
+            {
+                if(w[i].flag == 3)
+                {
+                    arr[num] = i;
+                    num++;
+                }
+            }
+            ////////////
+            int random = rand() % num;
+            int mabda = arr[random];
+            int maghsad = rand() % n;
+            if(maghsad == mabda && maghsad != n - 1)
+            {
+                maghsad++;
+            }
+            else if(maghsad == mabda && maghsad == n - 1)
+            {
+                maghsad--;
+            }
+            int q = w[mabda].number;
+            w[mabda].number = 0;
+            //define new mission for sending soldiors
+            for(int j = 0; j < q; j++)
+            {
+                change(e,j,s,mabda,maghsad,w,q);
+                e[j][s].pl = 3;
+            }
+            s++;
+            if(s > 99)
+            {
+                s = s % 100;
+            }
+
+        }
         //input key or mouse
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent))
@@ -172,13 +241,12 @@ int main()
         }
         //time and adding new soldiors
         //manage time and number of soldiors
+
         time++;
         if(time % 60 == 0)
         {
-
             for(int i = 0; i < n; i++)
             {
-
                 if(w[i].number < 20)
                 {
                     w[i].number++;
@@ -189,7 +257,7 @@ int main()
         SDL_RenderPresent(sdlRenderer);
         SDL_Delay(1000 / 30);
     }
-
+    show_score(win_lost);
     SDL_DestroyWindow(sdlWindow);
 
 
