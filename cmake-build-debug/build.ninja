@@ -75,14 +75,14 @@ build cmake_object_order_depends_target_state.io: phony || CMakeFiles/state.io.d
 build CMakeFiles/state.io.dir/src/main.c.o: C_COMPILER__state.2eio_Debug /Users/amir/Desktop/test/src/main.c || cmake_object_order_depends_target_state.io
   DEP_FILE = CMakeFiles/state.io.dir/src/main.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -std=gnu11
-  INCLUDES = -I/opt/homebrew/var/homebrew/linked/sdl2/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_gfx/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_ttf/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_image/include/SDL2 -I/Users/amir/Desktop/test/header -I/Users/amir/Desktop/test/src
+  INCLUDES = -I/opt/homebrew/var/homebrew/linked/sdl2/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_gfx/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_ttf/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_image/include/SDL2 -I/Users/amir/Desktop/test/header -I/Users/amir/Desktop/test/src -I/Users/amir/Desktop/test/fonts
   OBJECT_DIR = CMakeFiles/state.io.dir
   OBJECT_FILE_DIR = CMakeFiles/state.io.dir/src
 
 build CMakeFiles/state.io.dir/src/functions.c.o: C_COMPILER__state.2eio_Debug /Users/amir/Desktop/test/src/functions.c || cmake_object_order_depends_target_state.io
   DEP_FILE = CMakeFiles/state.io.dir/src/functions.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -std=gnu11
-  INCLUDES = -I/opt/homebrew/var/homebrew/linked/sdl2/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_gfx/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_ttf/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_image/include/SDL2 -I/Users/amir/Desktop/test/header -I/Users/amir/Desktop/test/src
+  INCLUDES = -I/opt/homebrew/var/homebrew/linked/sdl2/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_gfx/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_ttf/include/SDL2 -I/opt/homebrew/var/homebrew/linked/sdl2_image/include/SDL2 -I/Users/amir/Desktop/test/header -I/Users/amir/Desktop/test/src -I/Users/amir/Desktop/test/fonts
   OBJECT_DIR = CMakeFiles/state.io.dir
   OBJECT_FILE_DIR = CMakeFiles/state.io.dir/src
 

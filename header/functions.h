@@ -1,22 +1,19 @@
 #include <stdio.h>
 #include "SDL.h"
 
-struct soldior
+//structs
+struct tak_sarbaz
 {
     float x, y;
     Uint32 color1;
     Uint32 color2;
-    Uint32 main_color;
     int flag;
-
-};
-
-
-struct tak_sarbaz
-{
-    float x, y;
-    Uint32 color;
-    int flag;
+    int a, b;
+    float x1, y1, x2, y2;
+    int number;
+    double vatar;
+    int p;
+    int pl;
 };
 
 
@@ -29,21 +26,29 @@ struct all_house
     //colors
     Uint32 color1;
     Uint32 color2;
+    Uint32 color3;
+    Uint32 color4;
     Uint32 main_color;
     Uint32 momtane;
-
+    //flag
+    int flag;
 };
 
-void send_soldior(SDL_Renderer *sdlRenderer, SDL_bool shallExit, struct soldior a, struct soldior b, struct soldior c);
-
-void change_color(int x, int y, SDL_Renderer *sdlRenderer, struct soldior a);
-
-void select_a_cell(SDL_Renderer *sdlRenderer, struct soldior a);
-
+//functions
 int SDL_INIT();
 
+int SDL_TTF_INIT();
 
-void select(SDL_Event sdlEvent, struct soldior s);
-void send(SDL_Renderer *sdlRenderer, struct soldior s[], int a, int b, int n, SDL_bool shallExit, int d);
+void make_sure(struct all_house w[], int j, int i);
 
+void make_soldior_houses(struct all_house w[], int n);
+
+void send(SDL_Renderer *sdlRenderer, struct all_house s[], int a, int b, int n, SDL_bool shallExit, struct tak_sarbaz e[][100],
+          double vatar, int p, int m, struct all_house w[], int flag_player2, int arr[]);
+
+void change(struct tak_sarbaz e[][100], int j, int s, int a, int b, struct all_house w[], int q);
+
+void show_soldior_houses(SDL_Renderer *sdlRenderer, int n, struct all_house w[], int a, int b);
+
+void change_color(struct all_house w[], int i);
 

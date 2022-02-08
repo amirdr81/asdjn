@@ -1,65 +1,97 @@
 //main libraries
-#include <stdio.h>
 #include <math.h>
 
 //new & external libraries
 #include "SDL.h"
-#include "SDL2_gfxPrimitives.h"
-#include "SDL_image.h"
+
 #include "../header/functions.h"
 
 SDL_bool shallExit = SDL_FALSE;
 
+
+
 int main()
 {
+    srand(time(0));
     SDL_INIT();
+    //make new window
     SDL_Window *sdlWindow = SDL_CreateWindow("Test_Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640,
                                              480, SDL_WINDOW_OPENGL);
+    //define variables & structs
+    int a = -1, b = -1, s = 0, n;
 
-    //mine
-    struct soldior s[3];
-    for(int i = 0; i < 3; i++)
-    {
-        s[i].x = rand() % 640 + 1;
-        s[i].y = rand() % 480 + 1;
-        s[i].color1 = 0xffff0000;
-        s[i].color2 = 0xff00ff00;
-        s[i].main_color = s[i].color1;
-        s[i].flag = 0;
-    }
+    //make random n
+    n = rand() % 10 + 6;
+    struct all_house w[n];
+    struct tak_sarbaz e[1000][100];
+    long long int time = 1;
 
-    //all
-    struct all_house w[10];
-    for(int i = 0; i < 10; i++)
+    //make random places for soldior houses
+    make_soldior_houses(w,n);
+
+    //player 1
+    w[0].flag = 1;
+    w[0].main_color = w[0].color1;
+    w[0].number = 15;
+
+    //player 2
+    w[1].flag = 2;
+    w[1].main_color = w[1].color3;
+    w[1].number = 15;
+    int arr[n];
+    for(int i = 0; i < n; i++)
     {
-        w[i].x = rand() % 610 + 15;
-        w[i].y = rand() % 450 + 15;
-        w[i].color1 = 0xffff0000;
-        w[i].color2 = 0xff00ff00;
-        w[i].main_color = s[i].color1;
-        w[i].momtane = 0xb4b9b300;
+        arr[i] = -1;
     }
+    int flag_player2 = 1;
+    arr[0] = 1;
+
     //create renderer
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+
     //loop
-    int a = -1, b = -1;
     while(shallExit == SDL_FALSE)
     {
         //colors of the renderer
-        SDL_SetRenderDrawColor(sdlRenderer, 0xb4, 0xb9, 0xb3, 0xff);
+        SDL_SetRenderDrawColor(sdlRenderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(sdlRenderer);
-        for(int i = 0; i < 3; i++)
-        {
-            filledCircleColor(sdlRenderer,s[i].x , s[i].y, 15, s[i].main_color);
-            select_a_cell(sdlRenderer, s[i]);
-        }
-        for(int i = 0; i < 10; i++)
-        {
-            filledCircleColor(sdlRenderer,w[i].x , w[i].y, 15, w[i].momtane);
-            select_a_cell(sdlRenderer, s[i]);
-        }
-        SDL_Event sdlEvent;
 
+        //soldior houses
+        show_soldior_houses(sdlRenderer, n, w, a, b);
+
+
+        //moving soldiors
+        for(int j = 0; j < s; j++)
+        {
+            send(sdlRenderer, w, e[0][j].a, e[0][j].b, e[0][j].number, shallExit,e,e[0][j].vatar, e[0][j].p, j, w, flag_player2, arr);
+            if(arr[flag_player2] != -1)
+            {
+                flag_player2++;
+            }
+        }
+
+        //random sending soldiors
+        if(time % 350 == 0)
+        {
+            int random = rand() % flag_player2;
+            int final = arr[random];
+            int target = rand() % n;
+            int q = w[final].number;
+            w[final].number = 0;
+            for(int j = 0; j < q; j++)
+            {
+                change(e,j,s,final, target,w, q);
+                e[j][s].pl = 2;
+            }
+            s++;
+            if(s > 99)
+            {
+                s = s % 100;
+            }
+        }
+
+        //input key or mouse
+        SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent))
         {
             switch (sdlEvent.type)
@@ -70,41 +102,87 @@ int main()
                 case SDL_MOUSEBUTTONUP:
                     if (sdlEvent.button.button == SDL_BUTTON_LEFT)
                     {
-
                         int x = sdlEvent.button.x;
                         int y = sdlEvent.button.y;
-                        for(int i = 0; i < 3; i++)
+                        for(int i = 0; i < n; i++)
                         {
-                            if(sqrt(pow((x - s[i].x),2) + pow((y - s[i].y),2)) < 15)
+                            if(sqrt(pow((x - w[i].x),2) + pow((y - w[i].y),2)) < 15)
                             {
-                                if(a == -1)
+                                if(a == -1 && w[i].flag == 1)
                                 {
                                     a = i;
                                 }
+                                else if(a == -1)
+                                {
+                                    break;
+                                }
                                 else
                                 {
-                                    b = i;
-                                    s[a].main_color = s[a].color1;
-                                    s[b].main_color = s[b].color1;
-                                    send(sdlRenderer, s, a, b, 4, shallExit, 3);
+                                    if(i != a)
+                                    {
+                                        b = i;
+                                        w[a].main_color = w[a].color1;
+                                        ////////////////////////
+                                        int q = w[a].number;
+                                        w[a].number = 0;
+                                        //define new mission for sending soldiors
+                                        for(int j = 0; j < q; j++)
+                                        {
+                                            change(e,j,s,a,b,w,q);
+                                            e[j][s].pl = 1;
+                                        }
+                                        s++;
+                                        if(s > 99)
+                                        {
+                                            s = s % 100;
+                                        }
+                                        ////////////////////////
+
+
+                                    }
+                                    else
+                                    {
+                                        w[a].main_color = w[a].color1;
+                                        w[b].main_color = w[b].color1;
+                                        a = -1;
+                                        b = -1;
+                                        break;
+                                    }
                                     a = -1;
                                     b = -1;
                                     break;
                                 }
 
-                                if(s[i].main_color == s[i].color1)
+                                //change the color of cells(if it's needed)
+                                if(w[i].main_color == w[i].color1)
                                 {
-                                    s[i].main_color = s[i].color2;
+                                    w[i].main_color = w[i].color2;
                                 }
                                 else
                                 {
-                                    s[i].main_color = s[i].color1;
+                                    w[i].main_color = w[i].color1;
                                 }
                             }
                         }
 
                     }
 
+            }
+
+        }
+        //time and adding new soldiors
+        //manage time and number of soldiors
+        time++;
+        if(time % 60 == 0)
+        {
+
+            for(int i = 0; i < n; i++)
+            {
+
+                if(w[i].number < 20)
+                {
+                    w[i].number++;
+                }
             }
         }
         //present the renderer

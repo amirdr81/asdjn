@@ -27,19 +27,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 21,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 16,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 17,
+				"line" : 23,
 				"parent" : 0
 			},
 			{
@@ -55,9 +43,21 @@
 				"parent" : 0
 			},
 			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 21,
+				"parent" : 0
+			},
+			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 23,
+				"line" : 25,
 				"parent" : 0
 			},
 			{
@@ -94,6 +94,12 @@
 				"command" : 3,
 				"file" : 0,
 				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 15,
 				"parent" : 0
 			}
 		]
@@ -135,6 +141,10 @@
 				{
 					"backtrace" : 12,
 					"path" : "/Users/amir/Desktop/test/src"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "/Users/amir/Desktop/test/fonts"
 				}
 			],
 			"language" : "C",

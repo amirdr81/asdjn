@@ -12,6 +12,8 @@ include_directories(/opt/homebrew/var/homebrew/linked/sdl2_ttf/include/SDL2)
 include_directories(/opt/homebrew/var/homebrew/linked/sdl2_image/include/SDL2)
 include_directories(/Users/amir/Desktop/test/header)
 include_directories(/Users/amir/Desktop/test/src)
+include_directories(/Users/amir/Desktop/test/fonts)
+
 
 link_directories(/opt/homebrew/var/homebrew/linked/sdl2/lib)
 link_directories(/opt/homebrew/var/homebrew/linked/sdl2_gfx/lib)
